@@ -22,6 +22,21 @@
           </ol>
         </li>
       </ul>
+      <div v-bind:title="title">鼠标放上去看一下</div>
+      <img v-bind:src="url"/>
+      <img :src="url"/>
+      <br>
+      {{h}}
+      <div v-html="h"></div>
+      <div v-text="msg"></div>
+      <div v-bind:class="{'red':flag}">我是一个DIV</div>
+      <div v-bind:class="{'red':flag,'green':!flag}">我是另一个DIV</div>
+      <ul>
+        <li v-for="(item,key) in list" :key="item" :class="{'red':key==0,'green':key==1}"> 
+          {{key}}----->{{item}}
+        </li>
+      </ul>
+      <div class="box" :style="{width:boxwidth+'px'}">我是另一个DIV</div>
     </div>
   </template>
 
@@ -31,6 +46,11 @@
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
+        title: "我是一个标题",
+        url: 'http://localhost:8080/dist/logo.png?82b9c7a5a3f405032b1db71a25f67021',
+        h: '<h2>我是h2</h2>',
+        flag: false,
+        boxwidth: 300,
         obj:{
           name:"张三"
         },
@@ -88,5 +108,19 @@
 
   a {
     color: #42b983;
+  }
+
+  .red{
+    color: red;
+  }
+
+  .green{
+    color: green;
+  }
+
+  .box{
+    width: 100px;
+    height: 100px;
+    background: red;
   }
   </style>
