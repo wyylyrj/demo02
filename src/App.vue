@@ -1,60 +1,92 @@
-<template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
-  </div>
-</template>
+  <template>
+    <div id="app">
+      <img src="./assets/logo.png">
+      <h1>{{ msg }}</h1>
+      <h2>Essential Links</h2>
+      <h3>{{obj.name}}</h3>
+      <ul>
+        <li v-for="item in list" :key="item"> 
+          {{item}}
+        </li>
+      </ul>
+      <ul>
+        <li v-for="item in list1" :key="item.title">
+          {{item.title}}
+        </li>
+      </ul>
+      <ul>
+        <li v-for="item in list2" :key="item">
+          {{item.cate}}
+          <ol v-for="a in item.list" :key="a">
+            {{a.title}}
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </template>
 
-<script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  <script>
+  export default {
+    name: 'app',
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App',
+        obj:{
+          name:"张三"
+        },
+        list:['111','222','eee'],
+        list1:[
+          {'title':'111'},
+          {'title':'111'},
+          {'title':'111'}
+        ],
+        list2:[
+          {
+          "cate": "国内新闻",
+          "list":[
+            {'title':'国内新闻111'},
+            {'title':'国内新闻222'},
+          ]
+        },
+          {
+          "cate": "国际新闻",
+          "list":[
+            {'title':'国际新闻111'},
+            {'title':'国际新闻222'},
+          ]
+        }
+
+        ]
+      }
     }
   }
-}
-</script>
+  </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  <style>
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 
-h1, h2 {
-  font-weight: normal;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
 
-a {
-  color: #42b983;
-}
-</style>
+  a {
+    color: #42b983;
+  }
+  </style>
