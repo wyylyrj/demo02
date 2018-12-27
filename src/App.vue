@@ -1,83 +1,58 @@
   <template>
     <div id="app">
-      <img src="./assets/logo.png">
-      <h1>{{ msg }}</h1>
-      <h2>Essential Links</h2>
-      <h3>{{obj.name}}</h3>
-      <ul>
-        <li v-for="item in list" :key="item"> 
-          {{item}}
-        </li>
-      </ul>
-      <ul>
-        <li v-for="item in list1" :key="item.title">
-          {{item.title}}
-        </li>
-      </ul>
-      <ul>
-        <li v-for="item in list2" :key="item">
-          {{item.cate}}
-          <ol v-for="a in item.list" :key="a">
-            {{a.title}}
-          </ol>
-        </li>
-      </ul>
-      <div v-bind:title="title">鼠标放上去看一下</div>
-      <img v-bind:src="url"/>
-      <img :src="url"/>
-      <br>
-      {{h}}
-      <div v-html="h"></div>
-      <div v-text="msg"></div>
-      <div v-bind:class="{'red':flag}">我是一个DIV</div>
-      <div v-bind:class="{'red':flag,'green':!flag}">我是另一个DIV</div>
-      <ul>
-        <li v-for="(item,key) in list" :key="item" :class="{'red':key==0,'green':key==1}"> 
-          {{key}}----->{{item}}
-        </li>
-      </ul>
-      <div class="box" :style="{width:boxwidth+'px'}">我是另一个DIV</div>
+        {{msg}}
+        <br>
+        <input type="text" v-model="todo" @keydown="doAdd2($event)"/>
+        <button @click="doAdd()">+增加</button>
+        <hr>
+        <h1>已完成</h1>
+        <ul>
+            <li v-for="(item,key) in list" :key="key" v-if="!item.status">
+               <input type="checkbox" v-model="item.status">---{{item.title}}------<button @click="removeDate(key)">删除</button>
+            </li>
+        </ul>
+        <hr>
+        <h1>未完成</h1>
+        <ul>
+            <li v-for="(item,key) in list" :key="key" v-if="item.status">
+               <input type="checkbox" v-model="item.status">---{{item.title}}------<button @click="removeDate(key)">删除</button>
+            </li>
+        </ul>
     </div>
   </template>
 
   <script>
   export default {
     name: 'app',
-    data () {
-      return {
-        msg: 'Welcome to Your Vue.js App',
-        title: "我是一个标题",
-        url: 'http://localhost:8080/dist/logo.png?82b9c7a5a3f405032b1db71a25f67021',
-        h: '<h2>我是h2</h2>',
-        flag: false,
-        boxwidth: 300,
-        obj:{
-          name:"张三"
-        },
-        list:['111','222','eee'],
-        list1:[
-          {'title':'111'},
-          {'title':'111'},
-          {'title':'111'}
-        ],
-        list2:[
-          {
-          "cate": "国内新闻",
-          "list":[
-            {'title':'国内新闻111'},
-            {'title':'国内新闻222'},
-          ]
-        },
-          {
-          "cate": "国际新闻",
-          "list":[
-            {'title':'国际新闻111'},
-            {'title':'国际新闻222'},
-          ]
+    data(){
+        return{
+        msg: "123",
+        todo: "",
+        list: [],
         }
-
-        ]
-      }
+    },
+    methods:{
+        doAdd(){
+            //alert('增加');
+            this.list.push({
+                title: this.todo,
+                status: false,
+            });
+            this.todo='';
+        },
+        doAdd2(e){
+            //alert('增加');
+            if(e.keyCode==13){
+                this.list.push({
+                    title: this.todo,
+                    status: false,
+                });
+            }
+            this.todo='';
+        },
+        removeDate(key){
+            this.list.splice(key,1);
+        }
     }
   }
   </script>
