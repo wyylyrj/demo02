@@ -8,7 +8,7 @@
         <h1>已完成</h1>
         <ul>
             <li v-for="(item,key) in list" :key="key" v-if="!item.status">
-               <input type="checkbox" v-model="item.status">---{{item.title}}------<button @click="removeDate(key)">删除</button>
+               <input type="checkbox" v-model="item.status" @change="chageList()">---{{item.title}}------<button @click="removeDate(key)">删除</button>
             </li>
         </ul>
         <hr>
@@ -22,6 +22,7 @@
   </template>
 
   <script>
+  import storage from './model/storage.js';
   export default {
     name: 'app',
     data(){
@@ -39,6 +40,7 @@
                 status: false,
             });
             this.todo='';
+            storage.set('list',this.list);
         },
         doAdd2(e){
             //alert('增加');
@@ -48,10 +50,21 @@
                     status: false,
                 });
             }
-            this.todo='';
+            this.todo='';            
+            storage.set('list',this.list);
         },
         removeDate(key){
             this.list.splice(key,1);
+            storage.set('list',this.list);
+        },
+        chageList(){
+            storage.set('list',this.list);
+        }
+    },
+    mounted(){
+        var list = storage.get('list');
+        if(list){
+            this.list=list;
         }
     }
   }
